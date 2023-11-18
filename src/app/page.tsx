@@ -1,3 +1,7 @@
+import { Result } from "./components/result/result"
+
+import { LoadingBar } from "./components/loading-bar/loading-bar";
+
 export default function Home() {
-	return <h1 className='text-center'>Hello Sandscripters! ❤️</h1>
+	return <div><Result></Result></div>
 }
