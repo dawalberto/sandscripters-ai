@@ -1,5 +1,7 @@
 const sdk = require('api')('@eden-ai/v2.0#16oiz2r02xlp1ctnbx')
 
+export const maxDuration = 10
+
 sdk.auth(
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTQ4MmQ1M2EtNTVjZi00YTE4LWFkNmMtZjczMTcyOGRjYTIyIiwidHlwZSI6ImFwaV90b2tlbiJ9.GOlkWwfcx72YBoYThUrLte_QGKXFk10pwa315FlJ8Yc'
 )
@@ -22,7 +24,7 @@ export async function GET(request: Request) {
 		resolution: '1024x1024',
 		num_images: 1,
 		providers: provider,
-		text: prompt,
+		text: 'pink spiderman',
 	})
 
 	errorResponse.result = result
