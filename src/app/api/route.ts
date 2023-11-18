@@ -1,6 +1,6 @@
 const sdk = require('api')('@eden-ai/v2.0#16oiz2r02xlp1ctnbx')
 
-export const maxDuration = 20000
+export const maxDuration = 10
 
 sdk.auth(
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTQ4MmQ1M2EtNTVjZi00YTE4LWFkNmMtZjczMTcyOGRjYTIyIiwidHlwZSI6ImFwaV90b2tlbiJ9.GOlkWwfcx72YBoYThUrLte_QGKXFk10pwa315FlJ8Yc'
