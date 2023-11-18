@@ -1,13 +1,13 @@
 'use client'
 import { PlusIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useState } from 'react'
 import { Page, PageChip } from '../page-chip/page-chip'
 
 export const CreatePages = () => {
 	const [pageName, setPageName] = useState('')
 	const [pages, setPages] = useState<Page[]>([])
 
-	const handleInputChange = ({ target }) => {
+	const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
 		setPageName(target.value)
 	}
 
@@ -16,13 +16,13 @@ export const CreatePages = () => {
 		setPageName(() => '')
 	}
 
-	const handleKeyPress = ({ key }) => {
+	const handleKeyPress = ({ key }: KeyboardEvent<HTMLInputElement>) => {
 		if (key === 'Enter') {
 			handleAddPage()
 		}
 	}
 
-	const removePage = (pageName) => {
+	const removePage = (pageName: string) => {
 		setPages((pages) => pages.filter(({ page }) => page !== pageName))
 	}
 
