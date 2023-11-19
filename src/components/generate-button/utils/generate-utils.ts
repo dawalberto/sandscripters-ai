@@ -1,10 +1,11 @@
 import { Page } from '@/components/page-chip/page-chip'
+import { urlDomain } from '@/constants'
 
 export const getKeywords = async (webTheme: string) => {
 	console.log('🦊 Generando keywords para', webTheme)
 
 	try {
-		const response = await fetch('http://localhost:3001/generate-keywords', {
+		const response = await fetch(`${urlDomain}/generate-keywords`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json',
@@ -13,6 +14,7 @@ export const getKeywords = async (webTheme: string) => {
 		})
 
 		const data = await response.json()
+		console.log('🦊 keywords data', data)
 
 		if (data.keywords) {
 			console.log('🦊 data.keywords', data.keywords)
@@ -31,8 +33,7 @@ export const getPromptByPage = async ({ page, keywords }: { page: Page; keywords
 	// return page + ' ' + keywords
 
 	try {
-		// 	// const response = await fetch('http://localhost:3001/get-prompt', {
-		const response = await fetch('http://localhost:3001/generate-prompt', {
+		const response = await fetch(`${urlDomain}/generate-prompt`, {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json',
@@ -41,6 +42,7 @@ export const getPromptByPage = async ({ page, keywords }: { page: Page; keywords
 		})
 
 		const data = await response.json()
+		console.log('🦊 data', data)
 
 		if (data.prompt) {
 			console.log('🦊 data.prompt', data.prompt)
