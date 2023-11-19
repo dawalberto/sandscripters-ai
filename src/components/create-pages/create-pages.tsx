@@ -13,12 +13,15 @@ export const CreatePages = ({ webTheme }: { webTheme: string }) => {
 	}
 
 	const handleAddPage = () => {
+		if (!pageName) {
+			return
+		}
 		setPages((currentPages) => [...currentPages, { page: pageName }])
 		setPageName(() => '')
 	}
 
 	const handleKeyPress = ({ key }: KeyboardEvent<HTMLInputElement>) => {
-		if (key === 'Enter') {
+		if (key === 'Enter' && pageName) {
 			handleAddPage()
 		}
 	}
@@ -52,7 +55,7 @@ export const CreatePages = ({ webTheme }: { webTheme: string }) => {
 					))}
 				</div>
 			)}
-			<GenerateButton generationOptions={{ webTheme }} />
+			<GenerateButton generationOptions={{ webTheme, webPages: pages }} />
 		</>
 	)
 }
