@@ -1,5 +1,7 @@
 'use client'
 
+import { localStorageResultKey } from '@/constants'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { LoadingBar } from '../loading-bar/loading-bar'
 import { Page } from '../page-chip/page-chip'
@@ -9,6 +11,7 @@ export const GenerateButton = ({ generationOptions }: GenerateOptions) => {
 	const { webTheme, webPages } = generationOptions
 	const [loading, setLoading] = useState(false)
 	const [loadingMessage, setLoadingMessage] = useState('')
+	const router = useRouter()
 
 	const generateImages = async () => {
 		const images = []
@@ -25,14 +28,16 @@ export const GenerateButton = ({ generationOptions }: GenerateOptions) => {
 						updateLoadingMessage: setLoadingMessage,
 					})
 				)
-				images.push(result)
+				images.push({ page: webPages[i].page, image: result })
 			}
 
 			console.log('🦊 Las imagenes se han generado correctamente!', images)
-			return images
+			if (localStorage) {
+				localStorage.setItem(localStorageResultKey, JSON.stringify(images))
+				router.push('/result')
+			}
 		} catch (error) {
 			console.log('💣🚨 error', error)
-			return false
 		} finally {
 			setLoading(false)
 		}
