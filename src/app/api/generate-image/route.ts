@@ -27,6 +27,8 @@ export async function POST(request: Request) {
 		text: prompt,
 	})
 
+	console.log('🦊 result', result)
+
 	errorResponse.result = result
 
 	try {
