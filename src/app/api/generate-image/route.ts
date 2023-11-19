@@ -7,8 +7,6 @@ sdk.auth(
 )
 const provider = 'openai'
 
-export async function GET(request: Request) {}
-
 export async function POST(request: Request) {
 	const { prompt } = await request.json()
 	console.log('🦊 prompt', prompt)

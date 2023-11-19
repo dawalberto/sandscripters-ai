@@ -1,60 +1,57 @@
 import { Page } from '@/components/page-chip/page-chip'
-import { GenerateOptions } from '../generate-button'
 
-export const getKeywords = async ({ generationOptions }: GenerateOptions) => {
-	const { webTheme, webPages } = generationOptions
-	console.log('💣🚨 webTheme, webPages', webTheme, webPages)
+export const getKeywords = async (webTheme: string) => {
 	console.log('🦊 Generando keywords para', webTheme)
 
-	return 'bosque, río, naturaleza, amanecer' // mock
+	try {
+		const response = await fetch('http://localhost:3001/generate-keywords', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify({ theme: webTheme }),
+		})
 
-	// const response = await fetch('http://localhost:3001/get-key-words', {
-	// 	method: 'POST',
-	// 	headers: {
-	// 		'Content-type': 'application/json',
-	// 	},
-	// 	body: JSON.stringify({ theme: webTheme }),
-	// })
+		const data = await response.json()
 
-	// const data = await response.json()
+		if (data.keywords) {
+			console.log('🦊 data.keywords', data.keywords)
+			return data.keywords
+		}
+	} catch (error) {
+		console.log('🦊 error', error)
+		return null
+	}
 
-	// if (data.positive) {
-	// 	const images = await fetch(`http://localhost:3000/api?prompt=${data.positive}`)
-	// 	const imagesJson = await images.json()
-	// 	console.log('🦊 imagesJson', imagesJson)
-	// }
-
-	// console.log('🦊 data', data)
+	return null
 }
 
-export const getPromptByPage = async (page: Page[]) => {
-	console.log('🦊 Generando prompt para la página', page)
-	return 'custom promp'
+export const getPromptByPage = async ({ page, keywords }: { page: Page; keywords: string }) => {
+	console.log('🦊 Generando prompt para la página', page.page, 'con las keywords', keywords)
+	// return page + ' ' + keywords
 
-	// try {
-	// 	// const response = await fetch('http://localhost:3001/get-prompt', {
-	// 	const response = await fetch('http://localhost:3001/', {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-type': 'application/json',
-	// 		},
-	// 		body: JSON.stringify({ theme: page }),
-	// 	})
+	try {
+		// 	// const response = await fetch('http://localhost:3001/get-prompt', {
+		const response = await fetch('http://localhost:3001/generate-prompt', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json',
+			},
+			body: JSON.stringify({ page: page.page, keywords }),
+		})
 
-	// 	const data = await response.json()
+		const data = await response.json()
 
-	// 	if (data.positive) {
-	// 		const images = await fetch(`http://localhost:3000/api?prompt=${data.positive}`)
-	// 		const imagesJson = await images.json()
-	// 		console.log('🦊 imagesJson', imagesJson)
-	// 		return imagesJson
-	// 	}
+		if (data.prompt) {
+			console.log('🦊 data.prompt', data.prompt)
+			return data.prompt
+		}
 
-	// 	return null
-	// } catch (error) {
-	// 	console.log('💣🚨 error', error)
-	// 	return null
-	// }
+		return null
+	} catch (error) {
+		console.log('💣🚨 error', error)
+		return null
+	}
 }
 
 export const getImageByPrompt = async (prompt: string) => {
