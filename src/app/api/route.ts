@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 		resolution: '1024x1024',
 		num_images: 1,
 		providers: provider,
-		text: 'pink spiderman',
+		text: prompt,
 	})
 
 	errorResponse.result = result

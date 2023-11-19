@@ -1,9 +1,10 @@
 'use client'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
+import { GenerateButton } from '../generate-button/generate-button'
 import { Page, PageChip } from '../page-chip/page-chip'
 
-export const CreatePages = () => {
+export const CreatePages = ({ webTheme }: { webTheme: string }) => {
 	const [pageName, setPageName] = useState('')
 	const [pages, setPages] = useState<Page[]>([])
 
@@ -51,6 +52,7 @@ export const CreatePages = () => {
 					))}
 				</div>
 			)}
+			<GenerateButton generationOptions={{ webTheme }} />
 		</>
 	)
 }
