@@ -1,8 +1,8 @@
 import { Page } from '@/components/page-chip/page-chip'
 import { urlDomain } from '@/constants'
 
-export const getKeywords = async (webTheme: string) => {
-	console.log('🦊 Generando keywords para', webTheme)
+export const getKeywords = async (webTheme: string, userKeywords: string) => {
+	console.log('🦊 Generando keywords para', webTheme, 'con las keywords', userKeywords)
 
 	try {
 		const response = await fetch(`${urlDomain}/generate-keywords`, {
@@ -10,7 +10,7 @@ export const getKeywords = async (webTheme: string) => {
 			headers: {
 				'Content-type': 'application/json',
 			},
-			body: JSON.stringify({ theme: webTheme }),
+			body: JSON.stringify({ theme: webTheme, userKeywords }),
 		})
 
 		const data = await response.json()
