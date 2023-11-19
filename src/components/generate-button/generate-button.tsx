@@ -8,7 +8,7 @@ import { Page } from '../page-chip/page-chip'
 import { getImageByPrompt, getKeywords, getPromptByPage } from './utils/generate-utils'
 
 export const GenerateButton = ({ generationOptions }: GenerateOptions) => {
-	const { webTheme, webPages } = generationOptions
+	const { webTheme, webPages, userKeywords } = generationOptions
 	const [loading, setLoading] = useState(false)
 	const [loadingMessage, setLoadingMessage] = useState('')
 	const router = useRouter()
@@ -18,7 +18,7 @@ export const GenerateButton = ({ generationOptions }: GenerateOptions) => {
 		try {
 			setLoading(true)
 			setLoadingMessage(`Generando keywords sobre ${webTheme}`)
-			const keywords = await getKeywords(webTheme)
+			const keywords = await getKeywords(webTheme, userKeywords)
 
 			for (let i = 0; i < webPages.length; i++) {
 				let result = await Promise.resolve(
@@ -66,7 +66,9 @@ export const GenerateButton = ({ generationOptions }: GenerateOptions) => {
 	)
 }
 
-export type GenerateOptions = { generationOptions: { webTheme: string; webPages: Page[] } }
+export type GenerateOptions = {
+	generationOptions: { webTheme: string; webPages: Page[]; userKeywords: string }
+}
 
 const getImage = async ({
 	page,
