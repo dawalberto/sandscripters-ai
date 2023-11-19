@@ -7,9 +7,11 @@ sdk.auth(
 )
 const provider = 'openai'
 
-export async function GET(request: Request) {
-	const { searchParams } = new URL(request.url)
-	const prompt = searchParams.get('prompt')
+export async function GET(request: Request) {}
+
+export async function POST(request: Request) {
+	const { prompt } = await request.json()
+	console.log('🦊 prompt', prompt)
 	const errorResponse: ErrorResponse = { message: 'Something went wrong', result: '' }
 
 	if (!prompt) {
